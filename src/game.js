@@ -12,7 +12,7 @@ export default class Game {
   }
 
   static create(n, m) {
-    if (!Number.isInteger(n) || !Number.isInteger(m)) {
+    if (!Number.isInteger(n) || !Number.isInteger(m)   || n < 1 || m < 1) {
       throw new Error("Only accepts int val");
     }
     return new Game(n, m);
