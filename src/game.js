@@ -6,8 +6,8 @@ export default class Game {
       (this.cols = m),
       (this.turn = 0),
       (this.gameBoard = Array.from({ length: n }, () => Array(m).fill("_")));
-    this.destination = this.generateRandomDestination(); 
-    this.players=[]
+    this.destination = this.generateRandomDestination();
+    this.players = [];
     this.gameBoard[this.destination.x][this.destination.y] = "X";
   }
 
@@ -25,17 +25,106 @@ export default class Game {
     };
   }
 
-  addPlayer(player){ 
-    player.spawnPlayerAtEmptyPlace(this.rows,this.cols,this.gameBoard); 
-    this.players.push(player); 
-    this.gameBoard[player.x][player.y]=player.playerId;  
+  addPlayer(player) {
+    player.spawnPlayerAtEmptyPlace(this.rows, this.cols, this.gameBoard);
+    this.players.push(player);
+    this.gameBoard[player.x][player.y] = player.playerId;
+  }
+
+  isCollided() {
+    //basically this function is creating the map of all the cordionaes of player current pos and putting
+    //  the player in array and checking if the allpositions map of value has more than 1
+
+    const allpositonsMap = new Map();
+    let collisionHappend = false;
+    this.players.forEach((p) => {
+      if (p.collided) {
+        return true;
+      }
+      const playerPos = `${p.x},${p.y}`;
+
+      if (!allpositonsMap.has(playerPos)) {
+        allpositonsMap.set(playerPos, []);
+      }
+
+      allpositonsMap.get(playerPos).push(p);
+    });
+
+    allpositonsMap.forEach((p) => {
+      if (p.length > 1) {
+        if (!collisionHappend) {
+          console.log(`tow player ended up at same pos`);
+          collisionHappend = true;
+        }
+      } 
+      p.forEach((plyr)=>{
+        plyr.collided=true ; 
+     //i can remvoe from the grid also 
+     this.gameBoard[p.x][p.y]='_'; 
+      })
+    });  
+
+    return collisionHappend;
   }
 
   start() {
-    console.log(`Game ${"0" + this.gameId} turn ${this.turn}`);
+    this.turn++;
 
-    console.log(`Game destination ${JSON.stringify(this.destination)}`);
+    this.logs();
 
+    this.players.forEach((p) => {
+      p.nextMove(this.gameBoard, this.destination);
+    });
+
+    if (this.checkWin()) {
+      console.log(`
+        Game ${this.gameId} over !  
+        `);
+      return;
+    }
+
+    if (this.isCollided()) {
+      console.log(`
+        Game ${this.gameId} over !  
+        `);
+      return;
+    }
+
+    this.showBoard();
+
+    // setTimeout(() => {
+    //   this.start();
+    // }, 5000);
+  }
+
+  checkWin() {
+    let winner = "";
+    for (let p of this.players) {
+      if (this.destination.x === p.x && this.destination.y === p.y) {
+        winner = p.playerId;
+        break;
+      }
+    }
+    if (winner) {
+      this.showBoard();
+      console.log(` Winner found of game ${this.gameId}  winner is `, winner);
+      return true;
+    }
+
+    return false;
+  }
+
+  logs() {
+    console.log(`Game ${"0" + this.gameId} turn ${this.turn}\n`);
+
+    console.log(`Game destination ${JSON.stringify(this.destination)}\n`);
+
+    console.log("__________________________________________\n");
+
+    this.showBoard();
+  }
+
+  showBoard() {
     for (let i = 0; i < this.rows; i++) {
       let show = "";
       for (let j = 0; j < this.cols; j++) {
@@ -43,5 +132,6 @@ export default class Game {
       }
       console.log(show);
     }
+    console.log("\n");
   }
 }

@@ -39,6 +39,13 @@ export default class Player {
       y: Math.floor(Math.random() * col),
     };
   }
+  
+
+ nextMove(gameBoard,destination){
+   
+
+ }
+
 
   isSlotAvail(gameBoard) {
     for (let i = 0; gameBoard[0].length; i++) {

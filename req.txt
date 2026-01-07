@@ -3,7 +3,7 @@
  
 A random destination is generated which coordinates will be informed to all players // done 
 
-A new player joins, they will be spawned at a random location
+A new player joins, they will be spawned at a random location    // done 
 
 Once someone reaches destination, that player wins and game ends
 
