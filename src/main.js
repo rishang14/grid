@@ -1,6 +1,8 @@
 import Game from './game.js';
 import Player from './player.js';
 
+function main(){
+try {
 const game1 = Game.create(3, 4);
 const game2 = Game.create(4, 4);
 
@@ -16,7 +18,13 @@ game2.addPlayer(playerD);
 
 game1.start();
 game2.start();
+} catch (error) {
+    console.log("Error:", error)
+}
+} 
 
+
+main();
 /* CLI output:
 
 Game 01 Turn 001:

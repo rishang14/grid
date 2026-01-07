@@ -25,10 +25,10 @@ export default class Game {
     };
   }
 
-  addPlayer(player) {   
+  addPlayer(player){ 
     player.spawnPlayerAtEmptyPlace(this.rows,this.cols,this.gameBoard); 
     this.players.push(player); 
-    this.gameBoard[player.x][player.y]=player.playerId
+    this.gameBoard[player.x][player.y]=player.playerId;  
   }
 
   start() {
