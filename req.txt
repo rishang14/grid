@@ -5,15 +5,16 @@ A random destination is generated which coordinates will be informed to all play
 
 A new player joins, they will be spawned at a random location    // done 
 
-Once someone reaches destination, that player wins and game ends
+Once someone reaches destination, that player wins and game ends // done 
 
-If Two player ends up on same coordinates, both are eliminated.
+If Two player ends up on same coordinates, both are eliminated. //done 
 
-Every player can move one square every 5 seconds diagonally, horizontally and vertically.
+Every player can move one square every 5 seconds diagonally, horizontally and vertically. //done 
 
-Max player number < empty grid spots
+Max player number < empty grid spots  //done 
 
-New player can be added after a game starts     
+New player can be added after a game starts   //done    
+New player can be added after a game starts   //done    
 
 
 

@@ -4,7 +4,7 @@ import Player from './player.js';
 function main(){
 try {
 const game1 = Game.create(3, 4);
-const game2 = Game.create(4, 4);
+const game2 = Game.create(5, 5);
 
 const playerA = Player.create();
 const playerB = Player.create();

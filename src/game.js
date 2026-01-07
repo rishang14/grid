@@ -37,10 +37,13 @@ export default class Game {
 
     const allpositonsMap = new Map();
     let collisionHappend = false;
-    this.players.forEach((p) => {
+
+    for (let p of this.players) {
       if (p.collided) {
         return true;
       }
+    }
+    this.players.forEach((p) => {
       const playerPos = `${p.x},${p.y}`;
 
       if (!allpositonsMap.has(playerPos)) {
@@ -53,16 +56,16 @@ export default class Game {
     allpositonsMap.forEach((p) => {
       if (p.length > 1) {
         if (!collisionHappend) {
-          console.log(`tow player ended up at same pos`);
+     console.log(`two player ended up at same pos`);
           collisionHappend = true;
         }
-      } 
-      p.forEach((plyr)=>{
-        plyr.collided=true ; 
-     //i can remvoe from the grid also 
-     this.gameBoard[p.x][p.y]='_'; 
-      })
-    });  
+      p.forEach((plyr) => {
+        plyr.collided = true;
+        //i can remvoe from the grid also
+        this.gameBoard[plyr.x][plyr.y] = "_";
+      }); 
+    }
+    });
 
     return collisionHappend;
   }
@@ -83,7 +86,7 @@ export default class Game {
       return;
     }
 
-    if (this.isCollided()) {
+    if (this.isCollided()){
       console.log(`
         Game ${this.gameId} over !  
         `);
@@ -92,9 +95,9 @@ export default class Game {
 
     this.showBoard();
 
-    // setTimeout(() => {
-    //   this.start();
-    // }, 5000);
+    setTimeout(() => {
+      this.start();
+    }, 5000);
   }
 
   checkWin() {
@@ -119,9 +122,6 @@ export default class Game {
 
     console.log(`Game destination ${JSON.stringify(this.destination)}\n`);
 
-    console.log("__________________________________________\n");
-
-    this.showBoard();
   }
 
   showBoard() {
