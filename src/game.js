@@ -7,7 +7,8 @@ export default class Game {
       (this.turn = 0),
       (this.gameBoard = Array.from({ length: n }, () => Array(m).fill("_")));
     this.destination = this.generateRandomDestination(); 
-    this.gameBoard[this.destination.x][this.destination.y]='X';
+    this.players=[]
+    this.gameBoard[this.destination.x][this.destination.y] = "X";
   }
 
   static create(n, m) {
@@ -22,6 +23,12 @@ export default class Game {
       x: Math.floor(Math.random() * this.rows),
       y: Math.floor(Math.random() * this.cols),
     };
+  }
+
+  addPlayer(player) {   
+    player.spawnPlayerAtEmptyPlace(this.rows,this.cols,this.gameBoard); 
+    this.players.push(player); 
+    this.gameBoard[player.x][player.y]=player.playerId
   }
 
   start() {
